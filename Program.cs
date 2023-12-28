@@ -7,8 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Robuddy.Areas.Identity;
 using Robuddy.Data;
 
-[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -4,4 +4,57 @@
 
 <h1>Control Robuddy</h1>
 
+<div>
+    <h3>Send Twist Command</h3>
+    <form @onsubmit="SubmitForm">
+        <div style="margin-top: 20px" class="form-group">
+            <label for="x">X:</label>
+            <input type="number" class="form-control inline-input" id="x" @bind="x" />
+            <label for="y">Y:</label>
+            <input type="number" class="form-control inline-input" id="y" @bind="y" />
+        </div>
+        <div style="margin-top: 20px; width:20%;" class="form-group">
+            <label for="topic">Topic:</label>
+            <select class="form-control" id="topic" @bind="selectedTopic">
+                <option value="/polybot1">/polybot1</option>
+                <option value="/polybot2">/polybot2</option>
+                <option value="/polybot3">/polybot3</option>
+                <option value="/polybot4">/polybot4</option>
+                <option value="/polybot5">/polybot5</option>
+                <option value="custom">Custom Topic</option>
+            </select>
+        </div>
+        @if (selectedTopic == "custom")
+        {
+            <div style="margin-top: 20px; width:20%;" class="form-group">
+                <label for="customTopic">Custom Topic:</label>
+                <input type="text" class="form-control" id="customTopic" @bind="customTopic" />
+            </div>
+        }
+        <button style="margin-top: 20px" type="submit" class="btn btn-primary">Send Command</button>
+    </form>
+</div>
 
+
+
+@code {
+    private int x;
+    private int y;
+    private string selectedTopic = "cmd_vel"; // Default to "cmd_vel"
+    private string customTopic = string.Empty;
+    string topic = string.Empty;
+
+    private void SubmitForm()
+    {
+        if (customTopic == string.Empty)
+        {
+            topic = selectedTopic;
+        }
+        else
+        {
+            topic = customTopic;
+        }
+        // Call the SendTwistCommand method with the input values
+        SendTwistCommand(x, y, topic);
+    }
+}
